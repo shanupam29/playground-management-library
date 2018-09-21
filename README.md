@@ -1,2 +1,2 @@
 # some-playground
-Design Equipment and Kids Management System
+Design Kid's PlayGround Equipment and Kids Management System

@@ -51,11 +51,11 @@ happens as a background process without intefering normal API operations.
    
    Step 5: Get the Site Utilization snapshot at the configured interval. Currently this is returned as JSON data.
    
-#### API Details. 
-   Mainly there are 8 endpoints on this application. Details as below: 
-    1. To upload the site data in bulk using csv. 
+### API Details. 
+    Mainly there are 8 endpoints on this application. Details as below: 
+    1. To upload the site data in bulk using csv.  
          - POST /playground/upload-sites    
-    2. To upload the kids information into the system in bulk
+    2. To upload the kids information into the system in bulk.
          - POST /playground/upload-kids
     3. To add the site information as single entry
          - POST /playground/add-site

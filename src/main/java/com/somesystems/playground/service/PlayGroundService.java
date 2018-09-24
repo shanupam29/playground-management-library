@@ -68,6 +68,9 @@ public class PlayGroundService implements SiteOperationService {
     }
 
     public Boolean addSite(String siteName, String capacity) {
+        if(!isANumber(capacity)) {
+            return Boolean.FALSE;
+        }
         return playgroundCacheManager.addSite(generateRequestedSite(siteName,Integer.valueOf(capacity)));
     }
 
@@ -77,6 +80,9 @@ public class PlayGroundService implements SiteOperationService {
                                Boolean isVipUser,
                                String siteName,
                                Boolean acceptQueueWaiting) {
+        if(!isANumber(age) || !isANumber(ticketNum)) {
+            return Boolean.FALSE;
+        }
         return playgroundCacheManager.
                 addSiteUser(generateRequestedSiteUser(name, Double.parseDouble(age), Double.parseDouble(ticketNum), isVipUser, siteName, acceptQueueWaiting));
     }
@@ -120,6 +126,18 @@ public class PlayGroundService implements SiteOperationService {
                                                String siteName,
                                                Boolean acceptQueueWaiting) {
         return new Kid(name, age, ticketNum, isVipUser, siteName, acceptQueueWaiting);
+    }
+
+    private Boolean isANumber(String strNumber) {
+        try
+        {
+            double d = Double.parseDouble(strNumber);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
 

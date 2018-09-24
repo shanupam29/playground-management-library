@@ -105,7 +105,7 @@ public class PlaygroundController {
     }
 
     /**
-     * The rest endpoint to retrieve visitors count.
+     * The rest endpoint to retrieve utilization snapshot.
      *
      * @return String - Message
      */
@@ -115,7 +115,7 @@ public class PlaygroundController {
     }
 
     /**
-     * The rest endpoint to retrieve visitors count.
+     * The rest endpoint to retrieve duration per site per kid.
      *
      * @return String - Message
      */

@@ -12,6 +12,7 @@ import com.somesystems.playground.scheduler.PlaygroundMetricsScheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,11 +49,10 @@ public class PlayGroundService implements SiteOperationService {
     }
 
     @Override
-    public Map<String,Double> getDurationOfSiteUsedByKids() {
-        //TODO Fix the duration per site per kid method. It is returning only the site information.
-        Map<String,Double> sitesDurationUsedByKids = new HashMap<>();
+    public List<String> getDurationOfSiteUsedByKids() {
+        List<String> sitesDurationUsedByKids = new ArrayList<>();
         playgroundMetricsScheduler.getKidActivityCacheManger().forEach((siteUser, site) -> {
-            sitesDurationUsedByKids.put(siteUser.getSiteName(), Long.valueOf(site.getPlayTimePeriod()).doubleValue());
+            sitesDurationUsedByKids.add("kid name "+siteUser.getName()+" enrolled at site "+siteUser.getSiteName()+" for duration "+site.getPlayTimePeriod());
         });
         return sitesDurationUsedByKids;
     }

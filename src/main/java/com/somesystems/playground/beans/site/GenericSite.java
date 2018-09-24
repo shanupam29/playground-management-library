@@ -15,19 +15,27 @@ public abstract class GenericSite implements Site {
     private Map<Double,SiteUser> siteActiveKids = new HashMap<>();
     private LinkedList<SiteUser> waitingKidsQueue = new LinkedList<>();
 
+    /**
+     * This is an important method from the perspective of play operaration,
+     * it allows kid to access the equipment for a specified time period
+     * configured for the respective site.  The site does'nt wait for the
+     * equipment to be full before it starts running.
+     * @param kid
+     * @return
+     */
     @Override
     public Boolean addKidToSite(SiteUser kid) {
-        if(currentCount<getCapacity()) {
-            System.out.println("kid "+kid.getName()+" added to the site "+this.getSiteName());
+        if (currentCount < getCapacity()) {
+            System.out.println("kid " + kid.getName() + " added to the site " + this.getSiteName());
             siteActiveKids.put(kid.getTicketNum(), kid);
             // It is important to keep separate instance of the SiteTimer as it
             // is a composition of site and siteuser object. we can't afford to keep a singleton
             // object as it might lead to dodgy behavior in the system.
-            SiteTimer siteTimer = new SiteTimer(this,kid);
+            SiteTimer siteTimer = new SiteTimer(this, kid);
             siteTimer.startPlayTimer(getPlayTimePeriod());
             currentCount++;
             return true;
-        }else if(kid.getAcceptQueueWaiting()) {
+        } else if (kid.getAcceptQueueWaiting()) {
             return enqueue(kid);
         }
         return false;

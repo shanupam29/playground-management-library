@@ -10,7 +10,6 @@ public class Kid implements SiteUser {
     private Boolean isVipUser;
     private Boolean acceptQueueWaiting =Boolean.FALSE;
     private String siteName;
-//    public enum Sites {BALL_PIT, CAROUSAL, SWING, SLIDE};
 
     public Kid(String name, Double age, Double ticketNum, Boolean isVipUser, String siteName,Boolean acceptQueueWaiting) {
         setName(name);

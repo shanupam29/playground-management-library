@@ -1,6 +1,5 @@
 package com.somesystems.playground.intf;
 
-import com.somesystems.playground.beans.user.Kid;
 
 public interface SiteUser {
 

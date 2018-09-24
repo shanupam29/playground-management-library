@@ -1,6 +1,6 @@
 package com.somesystems.playground.beans.site;
 
-public class Swing extends SiteImpl {
+public class Swing extends GenericSite {
 
     private int capacity;
     private static final long PLAY_TIME_PER_KID = 120000L;

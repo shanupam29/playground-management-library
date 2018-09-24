@@ -1,6 +1,6 @@
 package com.somesystems.playground.beans.site;
 
-public class Carousal extends SiteImpl {
+public class Carousal extends GenericSite {
 
     //private static final int CAPACITY = 6;
     private int capacity;

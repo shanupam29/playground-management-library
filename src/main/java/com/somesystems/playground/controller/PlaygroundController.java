@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PlaygroundController {
@@ -60,14 +61,42 @@ public class PlaygroundController {
     }
 
     /**
-     * The endpoint to start the play into the sites(kids play equipments swing/slide etc)
-     *
-     * Given - if count is not provided, returns all 10 games recommendations.
+     * The endpoint to start the play into the sites(kids play equipments swing/slide etc.
      *
      * @return String - Message
      */
     @GetMapping("/playground/start-play")
     public ResponseEntity<String> startPlay() {
         return ResponseEntity.ok(playGroundManager.startPlay(SiteCacheManager.getSiteList(),SiteCacheManager.getKidsList()));
+    }
+
+    /**
+     * The rest endpoint to retrieve visitors count.
+     *
+     * @return String - Message
+     */
+    @GetMapping("/playground/visitors-count")
+    public ResponseEntity<Integer> fetchVisitorsCount() {
+        return ResponseEntity.ok(playGroundManager.getTotalNoOfVisitors());
+    }
+
+    /**
+     * The rest endpoint to retrieve visitors count.
+     *
+     * @return String - Message
+     */
+    @GetMapping("/playground/utilization-snapshot")
+    public ResponseEntity<Map<String, Double>> fetchUtilizationSnapshot() {
+        return ResponseEntity.ok(playGroundManager.getSitesCurrentUtilization());
+    }
+
+    /**
+     * The rest endpoint to retrieve visitors count.
+     *
+     * @return String - Message
+     */
+    @GetMapping("/playground/duration-per-site-by-kids")
+    public ResponseEntity<Map<String, Double>> fetchDurationPerSitePerKid() {
+        return ResponseEntity.ok(playGroundManager.getDurationOfSiteUsedByKids());
     }
 }

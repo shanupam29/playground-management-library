@@ -34,9 +34,7 @@ public abstract class SiteImpl implements Site {
     public synchronized void removeKidFromSite(SiteUser kid) {
         siteActiveKids.remove(kid.getTicketNum());
         currentCount--;
-        SiteUser firstKidInQueue;
         if (waitingKidsQueue.size() > 0) {
-            //firstKidInQueue = waitingKidsQueue.getFirst();
             addKidToSite(waitingKidsQueue.peek());
             waitingKidsQueue.size();
             dequeue(waitingKidsQueue.peek());
@@ -80,7 +78,7 @@ public abstract class SiteImpl implements Site {
 
     @Override
     public Double currentUtilization() {
-        return (double) ((getCapacity() / getPlayTimePeriod()) * 100);
+        return (double) ((currentCount / getCapacity()) * 100);
     }
 
     @Override
@@ -95,11 +93,6 @@ public abstract class SiteImpl implements Site {
             System.out.println("*Kid Name waiting on site is :"+siteUserWaiting.getName()+"                    *"));
             System.out.println("*                                                                              *");
             System.out.println("********************************************************************************");
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

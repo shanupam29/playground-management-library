@@ -10,17 +10,8 @@ import java.util.Map;
 
 public class SiteCacheManager {
 
-    private static Map<SiteUser, Site> kidActivityCacheManger = new HashMap<>();
-    private static List<Site> siteList = new ArrayList<>();
-    private static List<SiteUser> kidsList = new ArrayList<>();
-
-    public static void recordKidActivityPerSite(Site site, SiteUser kid) {
-        site.recordActivity(kid,kidActivityCacheManger);
-    }
-
-    public static int getTotalNumberOfVisitors() {
-        return kidActivityCacheManger.size();
-    }
+    private final static List<Site> siteList = new ArrayList<>();
+    private final static List<SiteUser> kidsList = new ArrayList<>();
 
     public static boolean cacheSites(List<Site> sites) {
         System.out.println("Caching Sites for Playground.");

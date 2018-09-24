@@ -61,6 +61,13 @@ public class PlaygroundController {
         return ResponseEntity.ok(playGroundService.uploadSiteUsersInformation(kidsInfo));
     }
 
+    /**
+     * Endpoint to support adding one site at a time.
+     *
+     * @param siteName
+     * @param capacity
+     * @return
+     */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/playground/add-site")
     public ResponseEntity<Boolean> addPlaygroundSite(@RequestParam String siteName, @RequestParam String capacity)  {
@@ -70,6 +77,17 @@ public class PlaygroundController {
         return ResponseEntity.ok(playGroundService.addSite(siteName,capacity));
     }
 
+    /**
+     * Endpoint to support addition of one kid at a time.
+     *
+     * @param name
+     * @param age
+     * @param ticketNum
+     * @param isVipUser
+     * @param siteName
+     * @param acceptQueueWaiting
+     * @return
+     */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/playground/add-siteuser")
     public ResponseEntity<Boolean> addPlaygroundSiteUser(@RequestParam String name,

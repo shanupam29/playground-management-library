@@ -31,7 +31,7 @@ public class PlaygroundMetricsScheduler implements SiteMetricsScheduler {
     }
 
     @Override
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRateString="${utilization.snapshot.rate}")
     public void recordSiteUtilizationSnapshot() {
         System.out.println("Site Utilization Snapshot scheduled");
         if (null != kidActivityCacheManger) {

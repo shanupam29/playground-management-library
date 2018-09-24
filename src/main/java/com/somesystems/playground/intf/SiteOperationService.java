@@ -12,7 +12,7 @@ public interface SiteOperationService {
 
     Map<String,Double> getSitesCurrentUtilization();
 
-    Map<String,Double> getDurationOfSiteUsedByKids();
+    List<String> getDurationOfSiteUsedByKids();
 
     Boolean uploadSitesInformation(List<Site> sites);
 

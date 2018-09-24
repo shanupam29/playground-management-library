@@ -138,7 +138,7 @@ public class PlaygroundController {
      * @return String - Message
      */
     @GetMapping("/playground/duration-per-site-by-kids")
-    public ResponseEntity<Map<String, Double>> fetchDurationPerSitePerKid() {
+    public ResponseEntity<List<String>> fetchDurationPerSitePerKid() {
         return ResponseEntity.ok(playGroundService.getDurationOfSiteUsedByKids());
     }
 

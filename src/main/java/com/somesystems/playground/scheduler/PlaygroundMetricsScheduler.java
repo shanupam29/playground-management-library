@@ -36,7 +36,7 @@ public class PlaygroundMetricsScheduler implements SiteMetricsScheduler {
         System.out.println("Site Utilization Snapshot scheduled");
         if (null != kidActivityCacheManger) {
             kidActivityCacheManger.values().stream().forEach(site -> {
-                siteUtilizationSnapshot.put(site.getSiteName() +" Snapshot Time is "+ LocalTime.now().getHour()+" Hours : "+LocalTime.now().getMinute()+" Minutes", site.currentUtilization());
+                siteUtilizationSnapshot.put(site.getSiteName() + " with Snapshot Time is " + LocalTime.now().getHour() + " Hours : " + LocalTime.now().getMinute() + " Minutes ->", site.currentUtilization());
             });
         }
     }

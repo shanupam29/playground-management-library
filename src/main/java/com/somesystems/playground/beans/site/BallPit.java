@@ -1,6 +1,6 @@
 package com.somesystems.playground.beans.site;
 
-public class BallPit extends SiteImpl {
+public class BallPit extends GenericSite {
 
     private int capacity;
     private static final long PLAY_TIME_PER_KID = 20000L; // 5 mins in millis

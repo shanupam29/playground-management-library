@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class SiteImpl implements Site {
+public abstract class GenericSite implements Site {
 
     private  int currentCount = 0;
     private Map<Double,SiteUser> siteActiveKids = new HashMap<>();

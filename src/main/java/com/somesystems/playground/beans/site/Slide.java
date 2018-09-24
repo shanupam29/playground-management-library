@@ -1,7 +1,7 @@
 package com.somesystems.playground.beans.site;
 
 
-public class Slide extends SiteImpl {
+public class Slide extends GenericSite {
 
     private int capacity;
     private static final long PLAY_TIME_PER_KID = 120000L;

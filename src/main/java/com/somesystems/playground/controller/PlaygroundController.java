@@ -1,9 +1,10 @@
 package com.somesystems.playground.controller;
 
-import com.somesystems.playground.cache.SiteCacheManager;
+import com.somesystems.playground.beans.site.BallPit;
+import com.somesystems.playground.cache.PlaygroundCacheManager;
 import com.somesystems.playground.intf.Site;
+import com.somesystems.playground.intf.SiteOperationService;
 import com.somesystems.playground.intf.SiteUser;
-import com.somesystems.playground.manager.PlayGroundManager;
 import com.somesystems.playground.util.CsvReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class PlaygroundController {
     private static final String FILE_EXTN = ".csv";
 
     @Autowired
-    private PlayGroundManager playGroundManager;
+    private SiteOperationService playGroundService;
     /**
      * The endpoint to facilitate uploading of a csv file with
      * sites and kid data. This will cache the site and kids data
@@ -39,7 +40,7 @@ public class PlaygroundController {
             ResponseEntity.badRequest().body(new ArrayList<>());
         }
         List<Site> sites = CsvReader.parseContentsForSites(file);
-        return ResponseEntity.ok(SiteCacheManager.cacheSites(sites));
+        return ResponseEntity.ok(playGroundService.uploadSitesInformation(sites));
     }
     /**
      * The endpoint to facilitate uploading of a csv file with
@@ -57,7 +58,30 @@ public class PlaygroundController {
             ResponseEntity.badRequest().body(new ArrayList<>());
         }
         List<SiteUser> kidsInfo = CsvReader.parseContentsForKidsInfo(file);
-        return ResponseEntity.ok(SiteCacheManager.cacheSiteUsers(kidsInfo));
+        return ResponseEntity.ok(playGroundService.uploadSiteUsersInformation(kidsInfo));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/playground/add-site")
+    public ResponseEntity<Boolean> addPlaygroundSite(@RequestParam String siteName, @RequestParam String capacity)  {
+        if (notNull(siteName) && notNull(capacity)) {
+            ResponseEntity.badRequest().body(Boolean.valueOf(false));
+        }
+        return ResponseEntity.ok(playGroundService.addSite(siteName,capacity));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/playground/add-siteuser")
+    public ResponseEntity<Boolean> addPlaygroundSiteUser(@RequestParam String name,
+                                                         @RequestParam String age,
+                                                         @RequestParam String ticketNum,
+                                                         @RequestParam Boolean isVipUser,
+                                                         @RequestParam String siteName,
+                                                         @RequestParam Boolean acceptQueueWaiting) {
+        if (notNull(name) && notNull(age) && notNull(ticketNum) && notNull(isVipUser) && notNull(siteName) && notNull(acceptQueueWaiting)) {
+            ResponseEntity.badRequest().body(Boolean.valueOf(false));
+        }
+        return ResponseEntity.ok(playGroundService.addSiteUser(name,age,ticketNum,isVipUser,siteName,acceptQueueWaiting));
     }
 
     /**
@@ -67,7 +91,7 @@ public class PlaygroundController {
      */
     @GetMapping("/playground/start-play")
     public ResponseEntity<String> startPlay() {
-        return ResponseEntity.ok(playGroundManager.startPlay(SiteCacheManager.getSiteList(),SiteCacheManager.getKidsList()));
+        return ResponseEntity.ok(playGroundService.startPlay(PlaygroundCacheManager.getSiteList(), PlaygroundCacheManager.getKidsList()));
     }
 
     /**
@@ -77,7 +101,7 @@ public class PlaygroundController {
      */
     @GetMapping("/playground/visitors-count")
     public ResponseEntity<Integer> fetchVisitorsCount() {
-        return ResponseEntity.ok(playGroundManager.getTotalNoOfVisitors());
+        return ResponseEntity.ok(playGroundService.getTotalNoOfVisitors());
     }
 
     /**
@@ -87,7 +111,7 @@ public class PlaygroundController {
      */
     @GetMapping("/playground/utilization-snapshot")
     public ResponseEntity<Map<String, Double>> fetchUtilizationSnapshot() {
-        return ResponseEntity.ok(playGroundManager.getSitesCurrentUtilization());
+        return ResponseEntity.ok(playGroundService.getSitesCurrentUtilization());
     }
 
     /**
@@ -97,6 +121,13 @@ public class PlaygroundController {
      */
     @GetMapping("/playground/duration-per-site-by-kids")
     public ResponseEntity<Map<String, Double>> fetchDurationPerSitePerKid() {
-        return ResponseEntity.ok(playGroundManager.getDurationOfSiteUsedByKids());
+        return ResponseEntity.ok(playGroundService.getDurationOfSiteUsedByKids());
+    }
+
+    private Boolean notNull(Object object) {
+        if(null != object && !object.equals("")) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }

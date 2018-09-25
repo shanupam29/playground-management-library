@@ -1,5 +1,6 @@
 package com.somesystems.playground.intf;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 public interface Site {
@@ -29,6 +30,10 @@ public interface Site {
     Double currentUtilization();
 
     void printKidsActiveOnPlaySite();
+
+    Map<Double, SiteUser> getSiteActiveKids();
+
+    LinkedList<SiteUser> getWaitingKidsOnSites();
 
 }
 

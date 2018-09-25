@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Upload Customer Game Recommendations.</title>
+    <title>PlayGround System Management.</title>
 </head>
 <style type="text/css">
     .file {
@@ -26,13 +26,43 @@
     }
 </style>
 <body>
+<div>
+    <table>
+        <h2>Playground Management System.</h2>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <b>Steps to load site and kids data into the system..</b>
+    </table>
+</div>
 <div class="button">
     <form method="POST" enctype="multipart/form-data" action="/playground/upload-sites">
         <table>
-            <tr><td>Step 1: File to upload for Sites:</td><td><input type="file" name="csvfile"/></td></tr>
+            <tr><td>Step 1: File to upload for Sites, bulk update of sites:</td><td><input type="file" name="csvfile"/></td></tr>
             <tr></tr>
             <tr></tr>
             <tr><td><input type="submit" value="Submit"/></td></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+    </form>
+</div>
+<div class="button">
+    <form method="POST" action="/playground/add-site">
+        <table>
+            <tr><td>Step 1: (Optional/Alternate): Add individual Site</td><td>
+            <tr><td>Site Type: <select name="siteName">
+            <option value="BallPit">BallPit</option>
+            <option value="Swing">Swing</option>
+            <option value="Slide">Slide</option>
+            <option value="Carousal">Carousal</option>
+            </select><td/><td>Capacity of the site equipment: <input type="text" name="capacity" maxlength="3"/></td></tr>
+            <tr></tr>
+            <br><br>
+            <tr><td><input type="submit" value="Submit"/></td></tr>
+            <tr></tr>
+            <tr></tr>
             <tr></tr>
             <tr></tr>
             <tr></tr>
@@ -55,9 +85,39 @@
         </table>
     </form>
 </div>
-
 <div class="button">
-    <form method="GET" action="/playground/start-play">
+    <form method="POST" action="/playground/add-siteuser">
+        <table>
+            <tr><td>Step 2: (Optional/Alternate): Add individual Kid</td><td>
+            <tr><td>
+            Name of Kid: <input type="text" name="name" size="20"/>
+            Age: <input type="text" name="age" size="5"/>
+            Ticket Number: <input type="text" name="ticketNum" size="10"/>
+            <input type="hidden" value="false" name="isVipUser" />
+            Is Vip User: <input type="checkbox" name="isVipUser"/>
+            Site Name:
+            <select name="siteName">
+                <option value="BallPit">BallPit</option>
+                <option value="Swing">Swing</option>
+                <option value="Slide">Slide</option>
+                <option value="Carousal">Carousal</option>
+            </select>
+            Accept Queue Waiting: <input type="checkbox" name="acceptQueueWaiting" value="true" checked/>
+            </td></tr>
+            <tr></tr>
+            <br><br>
+            <tr><td><input type="submit" value="Submit"/></td></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+    </form>
+</div>
+<div class="button">
+    <form method="GET" onsubmit="window.open('kids_report.html')" action="/playground/start-play" id="formwrap">
         <table>
             <tr><td>Step 3: Start Play, remember before you click here it is mandatory to complete above 2 steps</td></tr>
             <tr></tr>
@@ -66,15 +126,20 @@
             <tr></tr>
             <tr></tr>
             <tr></tr>
-            <tr></tr>
         </table>
     </form>
 </div>
-
+<div>
+    <table>
+        <h2>------------------------------------------------------------------------------------</h2>
+        <tr></tr>
+        <tr><td><b>Please use below buttons to fetch the Playground system analytics.</b></td></tr>
+    </table>
+</div>
 <div class="button">
     <form method="GET" action="/playground/visitors-count">
         <table>
-            <tr><td>Get the total visitor count for the day.</td></tr>
+            <tr><td>Total Visitor Count: Get the total visitor count for the day.</td></tr>
             <tr></tr>
             <tr></tr>
             <tr><td><input type="submit" value="Fetch Count"/></td></tr>
@@ -85,34 +150,26 @@
         </table>
     </form>
 </div>
-
-<div class="button">
-    <form method="GET" action="/playground/utilization-snapshot">
+<div>
+    <form action="utilization.html" target="_blank">
         <table>
-            <tr><td>Get the Site Utilization snapshot on configured interval.</td></tr>
+            <tr><td>Site Utilization Snapshot: Get the Site Utilization snapshot on configured interval.</td></tr>
             <tr></tr>
             <tr></tr>
-            <tr><td><input type="submit" value="Fetch Utilization Snapshot"/></td></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
+            <tr><td><input type="submit" value="Fetch Utilization Snapshot"></td></tr>
         </table>
     </form>
 </div>
 
-<div class="button">
-<form method="GET" action="/playground/duration-per-site-by-kids">
-    <table>
-        <tr><td>Fetch the site visited by each kid and time spent at each site.</td></tr>
-        <tr></tr>
-        <tr></tr>
-        <tr><td><input type="submit" value="Fetch Results"/></td></tr>
-        <tr></tr>
-        <tr></tr>
-        <tr></tr>
-        <tr></tr>
-    </table>
-</form>
+<div>
+    <form action="duration.html" target="_blank">
+        <table>
+            <tr><td>Time Duration Spent by each kid per Site: Fetch the site visited by each kid and time spent at each site.</td></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr><td><input type="submit" value="Fetch Results"></td></tr>
+        </table>
+    </form>
 </div>
+
 </body>

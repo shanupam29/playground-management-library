@@ -9,19 +9,20 @@ import com.somesystems.playground.cache.PlaygroundCacheManager;
 import com.somesystems.playground.constant.PlaygroundConstants;
 import com.somesystems.playground.intf.*;
 import com.somesystems.playground.scheduler.PlaygroundMetricsScheduler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.somesystems.playground.constant.PlaygroundConstants.ERROR_PLAY_MESSAGE;
 import static com.somesystems.playground.constant.PlaygroundConstants.START_PLAY_MESSAGE;
 
 @Service
 public class PlayGroundService implements SiteOperationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayGroundService.class);
 
     @Autowired
     private SiteMetricsScheduler playgroundMetricsScheduler;
@@ -52,7 +53,7 @@ public class PlayGroundService implements SiteOperationService {
     public List<String> getDurationOfSiteUsedByKids() {
         List<String> sitesDurationUsedByKids = new ArrayList<>();
         playgroundMetricsScheduler.getKidActivityCacheManger().forEach((siteUser, site) -> {
-            sitesDurationUsedByKids.add("kid name "+siteUser.getName()+" enrolled at site "+siteUser.getSiteName()+" for duration "+site.getPlayTimePeriod());
+            sitesDurationUsedByKids.add("Kid name "+siteUser.getName()+" is enrolled at site "+siteUser.getSiteName()+" for duration "+site.getPlayTimePeriod() +"millis");
         });
         return sitesDurationUsedByKids;
     }
@@ -63,8 +64,26 @@ public class PlayGroundService implements SiteOperationService {
     }
 
     @Override
+    public Map<String,String> getActiveKidsOnSites(List<Site> sites) {
+        Map<String,String> activeKidsSiteMap = new HashMap<>();
+        sites.forEach(site -> site.getSiteActiveKids().values().forEach(siteUser -> {
+            activeKidsSiteMap.put(siteUser.getName(),site.getSiteName());
+        }));
+        return activeKidsSiteMap;
+    }
+
+    @Override
+    public Map<String,String> getWaitingKidsOnSites(List<Site> sites) {
+        Map<String,String> waitingKidsSiteMap = new HashMap<>();
+        sites.forEach(site -> site.getWaitingKidsOnSites().forEach(siteUser -> {
+            waitingKidsSiteMap.put(siteUser.getName(),site.getSiteName());
+        }));
+        return waitingKidsSiteMap;
+    }
+
+    @Override
     public Boolean uploadSiteUsersInformation(List<SiteUser> siteUsers) {
-        return playgroundCacheManager.cacheSiteUsers(siteUsers);
+       return playgroundCacheManager.cacheSiteUsers(siteUsers);
     }
 
     public Boolean addSite(String siteName, String capacity) {
@@ -96,7 +115,7 @@ public class PlayGroundService implements SiteOperationService {
         if (site instanceof BallPit || site instanceof Swing || site instanceof Slide || site instanceof Carousal) {
             site.addKidToSite(siteUser);
         } else {
-            System.out.println("Kid Assigned to an unsupported site type " + siteUser.getSiteName());
+            LOGGER.debug("Kid Assigned to an unsupported site type " + siteUser.getSiteName());
             throw new UnsupportedOperationException("UnSupported Site");
         }
     }

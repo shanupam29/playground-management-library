@@ -2,11 +2,15 @@ package com.somesystems.playground.beans.time;
 
 import com.somesystems.playground.intf.Site;
 import com.somesystems.playground.intf.SiteUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SiteTimer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SiteTimer.class);
 
     private Site site;
     private SiteUser user;
@@ -42,7 +46,7 @@ public class SiteTimer {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Kid name "+getUser().getName()+" finished Playing at Site " + getSite().getSiteName());
+                LOGGER.debug("Kid name "+getUser().getName()+" finished Playing at Site " + getSite().getSiteName());
                 notifySite();
             }
         };
@@ -51,7 +55,7 @@ public class SiteTimer {
     }
 
     private void notifySite() {
-        System.out.println("Kid name "+getUser().getName() + " to be removed from the Site "+getSite().getSiteName());
+        LOGGER.debug("Kid name "+getUser().getName() + " to be removed from the Site "+getSite().getSiteName());
         getSite().removeKidFromSite(getUser());
     }
 

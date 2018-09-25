@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Active/Waiting kids on the Site Table.</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="table-responsive">
+        <h1> Active Kids on the Sites</h1>
+        <br/>
+        <table class="table table-bordered table-striped" id="drawing_table_active">
+            <tr>
+                <th>Site Name</th>
+                <th>Kid Name</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <h1> Waiting Kids on the Sites</h1>
+        <br/>
+        <table class="table table-bordered table-striped" id="drawing_table_waiting">
+            <tr>
+                <th>Site Name</th>
+                <th>Kid Name</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script>
+    setTimeout(function () {
+        location.reload(1);
+        },
+    2000);
+    $(document).ready(function () {
+        $.getJSON("http://localhost:8080//playground/active-kids",
+            function (data) {
+                var drawing_data = '';
+                $.each(data, function (key, value) {
+                    drawing_data += '<tr>';
+                    drawing_data += '<td>' + value + '</td>';
+                    drawing_data += '<td>' + key + '</td>';
+                    drawing_data += '<tr>';
+                });
+                $('#drawing_table_active').append(drawing_data);
+            });
+    });
+    $(document).ready(function () {
+        $.getJSON("http://localhost:8080//playground/waiting-kids",
+            function (data) {
+                var drawing_data = '';
+                $.each(data, function (key, value) {
+                    drawing_data += '<tr>';
+                    drawing_data += '<td>' + value + '</td>';
+                    drawing_data += '<td>' + key + '</td>';
+                    drawing_data += '<tr>';
+                });
+                $('#drawing_table_waiting').append(drawing_data);
+            });
+    });
+</script>

@@ -1,6 +1,5 @@
 package com.somesystems.playground.controller;
 
-import com.somesystems.playground.beans.site.BallPit;
 import com.somesystems.playground.cache.PlaygroundCacheManager;
 import com.somesystems.playground.intf.Site;
 import com.somesystems.playground.intf.SiteOperationService;
@@ -112,6 +111,25 @@ public class PlaygroundController {
         return ResponseEntity.ok(playGroundService.startPlay(PlaygroundCacheManager.getSiteList(), PlaygroundCacheManager.getKidsList()));
     }
 
+    /**
+     * The endpoint to return the active kids on sites currently playing.
+     *
+     * @return Map<siteuser,sitenam>
+     */
+    @GetMapping("/playground/active-kids")
+    public ResponseEntity<Map<String,String>> getActiveKidsOnSite() {
+        return ResponseEntity.ok(playGroundService.getActiveKidsOnSites(PlaygroundCacheManager.getSiteList()));
+    }
+
+    /**
+     * The endpoint to return the waiting/queued kids on sites waiting to play
+     *
+     * @return Map<siteuser,sitenam>
+     */
+    @GetMapping("/playground/waiting-kids")
+    public ResponseEntity<Map<String,String>> getWaitingKidsOnSites() {
+        return ResponseEntity.ok(playGroundService.getWaitingKidsOnSites(PlaygroundCacheManager.getSiteList()));
+    }
     /**
      * The rest endpoint to retrieve visitors count.
      *

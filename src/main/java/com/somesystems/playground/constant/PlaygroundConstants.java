@@ -3,14 +3,8 @@ package com.somesystems.playground.constant;
 
 public interface PlaygroundConstants {
 
-    String SITE_NAME_BALL_PIT = "BallPit";
-    String SITE_NAME_SWING = "Swing";
-    String SITE_NAME_SLIDE = "Slide";
-    String SITE_NAME_CAROUSAL = "Carousal";
-
-    String START_PLAY_MESSAGE = "Play Started, Monitor logs";
+    String START_PLAY_MESSAGE = "Play Started, Monitor logs. Or access http://localhost:8080/kids_report.html";
     String ERROR_PLAY_MESSAGE = "Site data or the kids data is empty, please check and resubmit";
-
     String HEADER_SITE_TYPE = "SITE_TYPE";
     String HEADER_CAPACITY = "CAPACITY";
     String HEADER_QUANTITY = "QUANTITY";

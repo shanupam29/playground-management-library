@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table for utilization snapshot.</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="table-responsive">
+        <h1> Record Site Utilization</h1>
+        <br/>
+        <table class="table table-bordered table-striped" id="drawing_table">
+            <tr>
+                <th>Site information with current time snapshot</th>
+                <th>Utilization(in %)</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script>
+    setTimeout(function () {
+        location.reload(1);
+        },
+    10000);
+    $(document).ready(function () {
+        $.getJSON("http://localhost:8080//playground/utilization-snapshot",
+            function (data) {
+                var drawing_data = '';
+                $.each(data, function (key, value) {
+                    drawing_data += '<tr>';
+                    drawing_data += '<td>' + key + '</td>';
+                    drawing_data += '<td>' + value + '</td>';
+                    drawing_data += '<tr>';
+                });
+                $('#drawing_table').append(drawing_data);
+            });
+    });
+</script>

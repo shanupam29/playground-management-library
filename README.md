@@ -1,20 +1,20 @@
 # Playground Management Library
 This is a playground utility library to perform general operations like 
 adding equipment/sites to playground, adding kids to playground(normal/vip feature 
-to skip queue by 3 normal kids) and calculate no of visitors , utlilization snapshot to name a few. 
+to skip queue by 3 normal kids) and calculate no of visitors , utilization snapshot to name a few. 
 
 ## Overview of the Library 
-The library supports loading sites and kids in bulk using CSV or single entry via diffrent API endpoints.
+The library supports loading sites and kids in bulk using CSV or single entry via different API endpoints.
 
 The Library is build using Spring boot 2.0.5 release and supports accessing the functionality via REST API. 
 
 The Library can be also be accessed by normally adding as a maven dependency using local repo and
 wiring the Playground service as a spring dependency injection. 
 
-A simple UI is provided and can be accessed at http://localhost:8080/index.html. Follow the steps on the link 
+A simple UI is provided and can be accessed at [http://localhost:8080/index.html](http://localhost:8080/index.html). Follow the steps on the link 
 to perform the operation on the library.
 
-Alternately API can be accessed via Swagger UI at http://localhost:8080/swagger-ui.html, to understand the 
+Alternately API can be accessed via Swagger UI at [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html), to understand the 
 controller exposed for different API functionality. 
 
 API supports multithreading for any bulk operations such the start play kids which allows simultaneous 
@@ -70,7 +70,23 @@ happens as a background process without intefering normal API operations.
     7. Fetch the site utilization snapshot.
          - GET /playground/utilization-snapshot
     8. Fetch the site visited by each kid and time spent at each site. 
-         - GET /playground/duration-per-site-by-kids                      
+         - GET /playground/duration-per-site-by-kids           
+    9. Fetch the active kids count for each site. 
+         - GET /playground/active-kids
+    10. Fetch the waiting kids count for each site. 
+         - GET /playground/active-kids              
+         
+#### Analytics 
+The Library supports analytics like site utilization, kid duration at each site, total visitor count and Active/Waiting kids on the site runtime information. The links can be accessed via 
+the main page [http://localhost:8080/index.html](http://localhost:8080/index.html). 
+
+To analytics information can be accessed below: 
+1. Active/Waiting kids on the site. [http://localhost:8080/kids_report.html](http://localhost:8080/kids_report.html)
+2. Site Utilization snapshot. [http://localhost:8080/utilization.html](http://localhost:8080/utilization.html)
+3. Duration kid spent per site basis. [http://localhost:8080/duration.html](http://localhost:8080/duration.html)
+
+Kindly note that the links will contain relavent data only when the application is initialised with site and kid data and start playing. 
+
 #### Author
 
    - Anupam Shrivastava 
